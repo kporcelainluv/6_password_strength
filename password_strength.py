@@ -35,8 +35,8 @@ def case_sensitivity(password):
 # check if password has special charactes
 def has_special_chars(password):
     list_of_special_symbols = "~`!@#$%^&*()_-+={}[]:>;',</?*-+"
-    for i in password:
-        if list_of_special_symbols.find(i) >= 1:
+    for char in password:
+        if list_of_special_symbols.find(char) >= 1:
             return True
         else:
             return False
