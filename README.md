@@ -1,6 +1,14 @@
 # Password Strength Calculator
 
-[TODO. There will be project description]
+The programm evaluates password strength and returns the score of entered password (from 1 to 10).
+
+# How to launch
+```
+$ python3 password_strength.py [enter your password here]
+
+8
+```
+
 
 # Project Goals
 
