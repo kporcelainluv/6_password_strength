@@ -1,64 +1,46 @@
 import re
-import sys
+import string
+import getpass
 
 
-def enter_password(filepath):
-    password = filepath
-    return password
-
-
-# check the length of password
 def password_length(password):
-    return len(password) >= 8
+    min_length_of_password = 8
+    return len(password) >= min_length_of_password
 
 
-# check for numbers
 def password_has_numbers(password):
     return any(char.isdigit() for char in password)
 
 
-# check for letters
 def password_has_letters(password):
     return any(char.isalpha() for char in password)
 
 
-# check if password has upper and lower case
 def case_sensitivity(password):
-    lower = re.compile(r'.*[a-z]+')
-    upper = re.compile(r'.*[A-Z]+')
-    if lower.match(password) and upper.match(password):
+    lower = bool(re.search("[a-z]", password))
+    upper = bool(re.search("[A-Z]", password))
+    if lower and upper:
         return True
-    else:
-        return False
+    return False
 
 
-# check if password has special charactes
 def has_special_chars(password):
-    list_of_special_symbols = "~`!@#$%^&*()_-+={}[]:>;',</?*-+"
     for char in password:
-        if list_of_special_symbols.find(char) >= 1:
+        if char in string.punctuation:
             return True
-        else:
-            return False
+    return False
 
 
 def get_password_strength(password):
-    level_of_strength = 2
-    if password_length(password):
-        level_of_strength += 2
-    if password_has_numbers(password):
-        level_of_strength += 1
-    if password_has_letters(password):
-        level_of_strength += 1
-    if case_sensitivity(password):
-        level_of_strength += 2
-    if has_special_chars(password):
-        level_of_strength += 2
-    return level_of_strength
+    list_of_funcs_checking_password = list()
 
+    list_of_funcs_checking_password.extend(
+        [password_length(password) * 2, password_has_numbers(password) * 1, password_has_letters(password) * 1,
+         case_sensitivity(password) * 3, has_special_chars(password) * 3])
+    return sum(list_of_funcs)
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        filepath = sys.argv[1]
+    users_password = getpass.getpass("Enter the Password:")
 
-print(get_password_strength(enter_password(filepath)))
+
+print(get_password_strength(users_password))
