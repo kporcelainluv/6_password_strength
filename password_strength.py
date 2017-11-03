@@ -32,11 +32,15 @@ def has_special_chars(password):
 
 
 def get_password_strength(password):
-    return sum([password_length(password) * 2, password_has_numbers(password) * 1, password_has_letters(password) * 1,
-                case_sensitivity(password) * 3, has_special_chars(password) * 3])
+    return sum([
+        password_length(password) * 2,
+        password_has_numbers(password) * 1,
+        password_has_letters(password) * 1,
+        case_sensitivity(password) * 3,
+        has_special_chars(password) * 3
+    ])
 
 
 if __name__ == '__main__':
     users_password = getpass.getpass("Enter the Password:")
-
-print(get_password_strength(users_password))
+    print(get_password_strength(users_password))
