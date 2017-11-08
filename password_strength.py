@@ -17,18 +17,14 @@ def password_has_letters(password):
 
 
 def case_sensitivity(password):
-    lower = bool(re.search("[a-z]", password))
-    upper = bool(re.search("[A-Z]", password))
-    if lower and upper:
-        return True
-    return False
+    has_lower = bool(re.search("[a-z]", password))
+    has_upper = bool(re.search("[A-Z]", password))
+    return bool(has_lower and has_upper)
 
 
 def has_special_chars(password):
-    for char in password:
-        if char in string.punctuation:
-            return True
-    return False
+    chars_in_password = set(password)
+    return bool(chars_in_password.intersection(string.punctuation))
 
 
 def get_password_strength(password):
